@@ -32,4 +32,4 @@ public class Ex4344reference {
         }
     }
 }
-출처: https://kang-james.tistory.com/entry/백준-4344번-Java-평균은-넘겠지 [내 꿈을 JAVA:티스토리]
+//출처: https://kang-james.tistory.com/entry/백준-4344번-Java-평균은-넘겠지 [내 꿈을 JAVA:티스토리]
