@@ -121,3 +121,44 @@ FROM
 ORDER BY 
     ordered_at DESC
 LIMIT 1;
+
+-- 13
+SELECT
+    order_id
+    ,b.book_id
+    ,book_name
+FROM
+    tbl_book b
+    LEFT JOIN tbl_order o ON b.book_id=o.book_id
+WHERE order_id IS NULL;
+
+-- 14
+SELECT
+    cust_name
+  , book_name
+  , price
+FROM 
+    tbl_customer c
+        RIGHT JOIN tbl_order o ON o.cust_id = c.cust_id
+        RIGHT JOIN tbl_book b ON b.book_id = o.book_id
+ORDER BY 
+price DESC
+LIMIT 1;
+
+-- 15
+SELECT
+    cust_name
+    ,count(cust_name)
+    FROM 
+    tbl_customer c
+    JOIN tbl_order o ON c.cust_id = o.cust_id
+WHERE
+    cust_name = '김연아';
+-- 16
+SELECT 
+     b.publisher
+     ,COUNT(o.book_id)
+FROM tbl_book b
+LEFT JOIN tbl_order o ON b.book_id = o.book_id
+GROUP BY b.publisher;
+-- 17
