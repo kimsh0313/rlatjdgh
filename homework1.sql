@@ -1,3 +1,6 @@
+CREATE DATABASE homeworkdb default CHARACTER SET UTF8; 
+SHOW DATABASES; # > #은 mysql에서 주석 입니다.
+
 use homeworkdb;
 CREATE TABLE tbl_book(
      book_id INT AUTO_INCREMENT PRIMARY KEY COMMENT '책번호'
@@ -35,7 +38,7 @@ VALUES
     ,(5, '피겨 교본', '굿 스포츠',6000)
     ,(6, '역도 단계별 기술', '굿 스포츠',6000)
     ,(7, '야구의 추억', '이상미디어',20000)
-    ,(8, '야구를 부탁해', '이상미디어',000)
+    ,(8, '야구를 부탁해', '이상미디어',13000)
     ,(9, '올림픽 이야기', '삼성당',7500)
     ,(10, '올림픽 챔피언', '나이스북',13000);
 
@@ -162,3 +165,54 @@ FROM tbl_book b
 LEFT JOIN tbl_order o ON b.book_id = o.book_id
 GROUP BY b.publisher;
 -- 17
+SELECT
+    cust_name
+    , COUNT(publisher)
+FROM
+    tbl_order
+    JOIN tbl_customer USING(cust_id)
+    JOIN tbl_book USING(book_id)
+WHERE
+    cust_name = '박지성'
+GROUP BY
+    cust_name;
+    -- 18
+SELECT
+    cust_name
+    ,SUM(price * amount)
+FROM
+    tbl_customer c
+        JOIN tbl_order o ON o.cust_id = c.cust_id
+        JOIN tbl_book b ON b.book_id = o.book_id
+GROUP BY
+    cust_name
+;
+
+-- 19
+
+SELECT
+	 cust_name
+	,ifnull(sum(price*amount),0)
+	,count(amount)
+FROM
+    tbl_order o
+        JOIN tbl_book b ON b.book_id = o.book_id
+        RIGHT JOIN tbl_customer c ON c.cust_id = o.cust_id
+GROUP BY
+    cust_name
+;
+
+-- 20
+ SELECT
+    cust_name
+    , SUM(price * amount)
+FROM
+    tbl_customer
+    LEFT JOIN tbl_order USING(cust_id)
+    LEFT JOIN tbl_book USING(book_id)
+GROUP BY
+    cust_name
+ORDER BY
+    SUM(price * amount) DESC
+LIMIT
+    2 OFFSET 1;
